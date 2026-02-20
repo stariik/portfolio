@@ -64,6 +64,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       skills: {
         Row: {
@@ -96,6 +97,7 @@ export type Database = {
           display_order?: number;
           created_at?: string;
         };
+        Relationships: [];
       };
       contact_messages: {
         Row: {
@@ -125,6 +127,7 @@ export type Database = {
           is_read?: boolean;
           created_at?: string;
         };
+        Relationships: [];
       };
       site_settings: {
         Row: {
@@ -148,6 +151,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
     };
     Views: {

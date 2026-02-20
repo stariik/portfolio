@@ -193,14 +193,19 @@ function ProjectCard({ project, index, onClick }: ProjectCardProps) {
         )}
 
         {/* Image container */}
-        <div className="aspect-video relative overflow-hidden bg-gradient-to-br" style={{ transform: "translateZ(10px)" }}>
+        <div className="aspect-video relative overflow-hidden" style={{ transform: "translateZ(10px)" }}>
           {isValidImageUrl(project.thumbnail_url) || isValidImageUrl(project.images?.[0]) ? (
-            <Image
-              src={(isValidImageUrl(project.thumbnail_url) ? project.thumbnail_url : project.images[0]) as string}
-              alt={project.title}
-              fill
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
-            />
+            <>
+              {project.category === "mobile" && (
+                <div className={`absolute inset-0 bg-gradient-to-br ${gradients[index % gradients.length]}`} />
+              )}
+              <Image
+                src={(isValidImageUrl(project.thumbnail_url) ? project.thumbnail_url : project.images[0]) as string}
+                alt={project.title}
+                fill
+                className={`${project.category === "mobile" ? "object-contain p-2" : "object-cover"} transition-transform duration-500 group-hover:scale-105`}
+              />
+            </>
           ) : (
             <div className={`w-full h-full bg-gradient-to-br ${gradients[index % gradients.length]} flex items-center justify-center`}>
               <motion.span
@@ -313,7 +318,7 @@ function ProjectCard({ project, index, onClick }: ProjectCardProps) {
   );
 }
 
-function ImageCarousel({ images }: { images: string[] }) {
+function ImageCarousel({ images, isMobile = false }: { images: string[]; isMobile?: boolean }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const goTo = (index: number) => {
@@ -339,56 +344,115 @@ function ImageCarousel({ images }: { images: string[] }) {
   }, [images.length]);
 
   return (
-    <div className="aspect-video relative overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentIndex}
-          initial={{ opacity: 0, x: 40 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -40 }}
-          transition={{ duration: 0.25 }}
-          className="absolute inset-0"
-        >
-          <Image
-            src={images[currentIndex]}
-            alt={`Project image ${currentIndex + 1}`}
-            fill
-            className="object-cover"
-          />
-        </motion.div>
-      </AnimatePresence>
-      <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
-
-      {/* Navigation arrows */}
-      {images.length > 1 && (
+    <div className={`${isMobile ? "flex justify-center py-6" : "aspect-video"} relative overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20`}>
+      {isMobile ? (
         <>
-          <button
-            onClick={prev}
-            className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background/80 backdrop-blur-sm border border-border hover:bg-background transition-colors z-10"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-          <button
-            onClick={next}
-            className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background/80 backdrop-blur-sm border border-border hover:bg-background transition-colors z-10"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
-
-          {/* Dot indicators */}
-          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-            {images.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goTo(index)}
-                className={`w-2 h-2 rounded-full transition-all ${
-                  index === currentIndex
-                    ? "bg-primary w-6"
-                    : "bg-foreground/30 hover:bg-foreground/50"
-                }`}
-              />
-            ))}
+          <div className="relative h-[55vh] aspect-[9/16]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentIndex}
+                initial={{ opacity: 0, x: 40 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -40 }}
+                transition={{ duration: 0.25 }}
+                className="absolute inset-0"
+              >
+                <Image
+                  src={images[currentIndex]}
+                  alt={`Project image ${currentIndex + 1}`}
+                  fill
+                  className="object-contain rounded-lg"
+                />
+              </motion.div>
+            </AnimatePresence>
           </div>
+
+          {/* Navigation arrows for mobile - outside the image */}
+          {images.length > 1 && (
+            <>
+              <button
+                onClick={prev}
+                className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background/80 backdrop-blur-sm border border-border hover:bg-background transition-colors z-10"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={next}
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background/80 backdrop-blur-sm border border-border hover:bg-background transition-colors z-10"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+
+              {/* Dot indicators */}
+              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                {images.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goTo(index)}
+                    className={`w-2 h-2 rounded-full transition-all ${
+                      index === currentIndex
+                        ? "bg-primary w-6"
+                        : "bg-foreground/30 hover:bg-foreground/50"
+                    }`}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+        </>
+      ) : (
+        <>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -40 }}
+              transition={{ duration: 0.25 }}
+              className="absolute inset-0"
+            >
+              <Image
+                src={images[currentIndex]}
+                alt={`Project image ${currentIndex + 1}`}
+                fill
+                className="object-cover"
+              />
+            </motion.div>
+          </AnimatePresence>
+          <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
+
+          {/* Navigation arrows */}
+          {images.length > 1 && (
+            <>
+              <button
+                onClick={prev}
+                className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background/80 backdrop-blur-sm border border-border hover:bg-background transition-colors z-10"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={next}
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background/80 backdrop-blur-sm border border-border hover:bg-background transition-colors z-10"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+
+              {/* Dot indicators */}
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                {images.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goTo(index)}
+                    className={`w-2 h-2 rounded-full transition-all ${
+                      index === currentIndex
+                        ? "bg-primary w-6"
+                        : "bg-foreground/30 hover:bg-foreground/50"
+                    }`}
+                  />
+                ))}
+              </div>
+            </>
+          )}
         </>
       )}
     </div>
@@ -585,16 +649,27 @@ export function Projects({ projects = sampleProjects }: ProjectsProps) {
               >
                 {/* Project Image / Carousel */}
                 {selectedProject.images && selectedProject.images.length > 0 ? (
-                  <ImageCarousel images={selectedProject.images} />
+                  <ImageCarousel images={selectedProject.images} isMobile={selectedProject.category === "mobile"} />
                 ) : (
-                  <div className="aspect-video relative overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20">
+                  <div className={`${selectedProject.category === "mobile" ? "flex justify-center py-6" : "aspect-video"} relative overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20`}>
                     {isValidImageUrl(selectedProject.thumbnail_url) ? (
-                      <Image
-                        src={selectedProject.thumbnail_url}
-                        alt={selectedProject.title}
-                        fill
-                        className="object-cover"
-                      />
+                      selectedProject.category === "mobile" ? (
+                        <div className="relative h-[55vh] aspect-[9/16]">
+                          <Image
+                            src={selectedProject.thumbnail_url}
+                            alt={selectedProject.title}
+                            fill
+                            className="object-contain rounded-lg"
+                          />
+                        </div>
+                      ) : (
+                        <Image
+                          src={selectedProject.thumbnail_url}
+                          alt={selectedProject.title}
+                          fill
+                          className="object-cover"
+                        />
+                      )
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
                         <span className="text-8xl font-black text-foreground/10">
