@@ -6,12 +6,12 @@ import { Github, Linkedin, Twitter, Mail, Heart } from "lucide-react";
 const socialLinks = [
   {
     name: "GitHub",
-    href: "https://github.com/tornikekalandadze",
+    href: "https://github.com/stariik",
     icon: Github,
   },
   {
     name: "LinkedIn",
-    href: "https://linkedin.com/in/tornikekalandadze",
+    href: "https://www.linkedin.com/in/tornike-kalandadze-997701365/",
     icon: Linkedin,
   },
   {
@@ -21,7 +21,7 @@ const socialLinks = [
   },
   {
     name: "Email",
-    href: "mailto:hello@tornike.dev",
+    href: "mailto:tornikekalandadze.work@gmail.com",
     icon: Mail,
   },
 ];
@@ -70,9 +70,7 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-8 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-          <p>
-            &copy; {currentYear} Tornike Kalandadze. All rights reserved.
-          </p>
+          <p>&copy; {currentYear} Tornike Kalandadze. All rights reserved.</p>
           <p className="flex items-center gap-1">
             Made with{" "}
             <motion.span

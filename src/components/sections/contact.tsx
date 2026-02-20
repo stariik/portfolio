@@ -1,12 +1,30 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useInView, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  useInView,
+  useMotionValue,
+  useSpring,
+  useTransform,
+  AnimatePresence,
+} from "framer-motion";
 import { gsap } from "gsap";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Mail, MapPin, Send, Loader2, CheckCircle, MessageSquare, Sparkles, Phone, Clock, ArrowRight } from "lucide-react";
+import {
+  Mail,
+  MapPin,
+  Send,
+  Loader2,
+  CheckCircle,
+  MessageSquare,
+  Sparkles,
+  Phone,
+  Clock,
+  ArrowRight,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -26,8 +44,8 @@ const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "hello@tornike.dev",
-    href: "mailto:hello@tornike.dev",
+    value: "tornikekalandadze.work@gmail.com",
+    href: "mailto:tornikekalandadze.work@gmail.com",
     color: "#E86A17",
   },
   {
@@ -67,7 +85,15 @@ function FloatingParticle({ delay = 0 }: { delay?: number }) {
   );
 }
 
-function ContactInfoCard({ info, index, isInView }: { info: typeof contactInfo[0]; index: number; isInView: boolean }) {
+function ContactInfoCard({
+  info,
+  index,
+  isInView,
+}: {
+  info: (typeof contactInfo)[0];
+  index: number;
+  isInView: boolean;
+}) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -95,7 +121,13 @@ function ContactInfoCard({ info, index, isInView }: { info: typeof contactInfo[0
   );
 }
 
-function ContactCardContent({ info, isHovered }: { info: typeof contactInfo[0]; isHovered: boolean }) {
+function ContactCardContent({
+  info,
+  isHovered,
+}: {
+  info: (typeof contactInfo)[0];
+  isHovered: boolean;
+}) {
   return (
     <>
       {/* Background glow */}
@@ -109,13 +141,19 @@ function ContactCardContent({ info, isHovered }: { info: typeof contactInfo[0]; 
       <motion.div
         className="p-3 rounded-xl relative z-10"
         style={{ backgroundColor: `${info.color}15` }}
-        animate={isHovered ? { rotate: [0, -10, 10, 0], scale: 1.1 } : { rotate: 0, scale: 1 }}
+        animate={
+          isHovered
+            ? { rotate: [0, -10, 10, 0], scale: 1.1 }
+            : { rotate: 0, scale: 1 }
+        }
         transition={{ duration: 0.5 }}
       >
         <info.icon className="w-6 h-6" style={{ color: info.color }} />
       </motion.div>
       <div className="relative z-10">
-        <h4 className="font-semibold group-hover:text-primary transition-colors">{info.label}</h4>
+        <h4 className="font-semibold group-hover:text-primary transition-colors">
+          {info.label}
+        </h4>
         <p className="text-muted-foreground text-sm">{info.value}</p>
       </div>
 
@@ -172,7 +210,8 @@ function FormField({
             <motion.div
               className="absolute inset-0 -z-10 rounded-lg"
               style={{
-                background: "radial-gradient(circle at 50% 50%, rgba(232, 106, 23, 0.15) 0%, transparent 70%)",
+                background:
+                  "radial-gradient(circle at 50% 50%, rgba(232, 106, 23, 0.15) 0%, transparent 70%)",
                 filter: "blur(10px)",
               }}
               initial={{ opacity: 0, scale: 0.8 }}
@@ -251,7 +290,9 @@ function SuccessAnimation() {
             key={i}
             className="absolute w-2 h-2 rounded-full"
             style={{
-              backgroundColor: ["#E86A17", "#F07B1A", "#C2873D", "#22C55E"][i % 4],
+              backgroundColor: ["#E86A17", "#F07B1A", "#C2873D", "#22C55E"][
+                i % 4
+              ],
               left: "50%",
               top: "40%",
             }}
@@ -282,8 +323,14 @@ export function Contact() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const formRotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [3, -3]), { stiffness: 100, damping: 30 });
-  const formRotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-3, 3]), { stiffness: 100, damping: 30 });
+  const formRotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [3, -3]), {
+    stiffness: 100,
+    damping: 30,
+  });
+  const formRotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-3, 3]), {
+    stiffness: 100,
+    damping: 30,
+  });
 
   const handleFormMouseMove = (e: React.MouseEvent<HTMLFormElement>) => {
     if (!formRef.current) return;
@@ -320,8 +367,8 @@ export function Contact() {
         stagger: 0.03,
         duration: 0.6,
         ease: "back.out(1.7)",
-        delay: 0.2
-      }
+        delay: 0.2,
+      },
     );
   }, [isInView]);
 
@@ -361,13 +408,18 @@ export function Contact() {
   const sectionTitle = "Let's Work Together";
 
   return (
-    <section id="contact" ref={sectionRef} className="py-20 md:py-32 relative overflow-hidden">
+    <section
+      id="contact"
+      ref={sectionRef}
+      className="py-20 md:py-32 relative overflow-hidden"
+    >
       {/* Background elements */}
       <div className="absolute inset-0 pointer-events-none">
         <motion.div
           className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full opacity-5"
           style={{
-            background: "radial-gradient(circle, var(--primary) 0%, transparent 70%)",
+            background:
+              "radial-gradient(circle, var(--primary) 0%, transparent 70%)",
             filter: "blur(80px)",
           }}
           animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
@@ -376,7 +428,8 @@ export function Contact() {
         <motion.div
           className="absolute bottom-1/4 left-1/4 w-72 h-72 rounded-full opacity-5"
           style={{
-            background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)",
+            background:
+              "radial-gradient(circle, var(--accent) 0%, transparent 70%)",
             filter: "blur(60px)",
           }}
           animate={{ x: [0, -20, 0], y: [0, 20, 0] }}
@@ -445,7 +498,12 @@ export function Contact() {
 
             <div className="space-y-4">
               {contactInfo.map((info, index) => (
-                <ContactInfoCard key={info.label} info={info} index={index} isInView={isInView} />
+                <ContactInfoCard
+                  key={info.label}
+                  info={info}
+                  index={index}
+                  isInView={isInView}
+                />
               ))}
             </div>
 
@@ -481,12 +539,18 @@ export function Contact() {
                 <div className="relative z-10 p-6 h-full flex flex-col justify-end">
                   <motion.div
                     animate={{ y: [0, -5, 0] }}
-                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
                   >
                     <Sparkles className="w-8 h-8 text-primary mb-2" />
                   </motion.div>
                   <p className="text-sm font-medium">Available for freelance</p>
-                  <p className="text-xs text-muted-foreground">projects and full-time roles</p>
+                  <p className="text-xs text-muted-foreground">
+                    projects and full-time roles
+                  </p>
                 </div>
               </div>
             </motion.div>
@@ -520,7 +584,13 @@ export function Contact() {
               <div className="space-y-6">
                 {/* Name and Email row */}
                 <div className="grid sm:grid-cols-2 gap-6">
-                  <FormField label="Name" id="name" error={errors.name?.message} delay={0.4} isInView={isInView}>
+                  <FormField
+                    label="Name"
+                    id="name"
+                    error={errors.name?.message}
+                    delay={0.4}
+                    isInView={isInView}
+                  >
                     <Input
                       id="name"
                       variant="retro"
@@ -530,7 +600,13 @@ export function Contact() {
                     />
                   </FormField>
 
-                  <FormField label="Email" id="email" error={errors.email?.message} delay={0.45} isInView={isInView}>
+                  <FormField
+                    label="Email"
+                    id="email"
+                    error={errors.email?.message}
+                    delay={0.45}
+                    isInView={isInView}
+                  >
                     <Input
                       id="email"
                       type="email"
@@ -543,7 +619,12 @@ export function Contact() {
                 </div>
 
                 {/* Subject */}
-                <FormField label="Subject (Optional)" id="subject" delay={0.5} isInView={isInView}>
+                <FormField
+                  label="Subject (Optional)"
+                  id="subject"
+                  delay={0.5}
+                  isInView={isInView}
+                >
                   <Input
                     id="subject"
                     variant="retro"
@@ -554,7 +635,13 @@ export function Contact() {
                 </FormField>
 
                 {/* Message */}
-                <FormField label="Message" id="message" error={errors.message?.message} delay={0.55} isInView={isInView}>
+                <FormField
+                  label="Message"
+                  id="message"
+                  error={errors.message?.message}
+                  delay={0.55}
+                  isInView={isInView}
+                >
                   <Textarea
                     id="message"
                     variant="retro"

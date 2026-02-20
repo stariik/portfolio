@@ -7,7 +7,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { useDemoMode } from "@/hooks/use-demo-mode";
 
@@ -20,10 +26,11 @@ export default function AdminSettingsPage() {
       siteTitle: "Tornike Kalandadze",
       siteDescription: "Full-Stack Developer Portfolio",
       heroSubtitle: "Full-Stack Developer",
-      heroBio: "I craft beautiful, performant web experiences with modern technologies.",
-      email: "hello@tornike.dev",
-      github: "https://github.com/tornikekalandadze",
-      linkedin: "https://linkedin.com/in/tornikekalandadze",
+      heroBio:
+        "I craft beautiful, performant web experiences with modern technologies.",
+      email: "tornikekalandadze.work@gmail.com",
+      github: "https://github.com/stariik",
+      linkedin: "https://www.linkedin.com/in/tornike-kalandadze-997701365/",
       twitter: "https://twitter.com/tornikekalandadze",
     },
   });
@@ -125,7 +132,11 @@ export default function AdminSettingsPage() {
           </CardContent>
         </Card>
 
-        <Button type="submit" variant="retro" disabled={isLoading || isDemoMode}>
+        <Button
+          type="submit"
+          variant="retro"
+          disabled={isLoading || isDemoMode}
+        >
           {isLoading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
           {isDemoMode ? "Demo Mode (Read-only)" : "Save Settings"}
         </Button>

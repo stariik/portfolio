@@ -139,7 +139,7 @@ CREATE POLICY "Authenticated users can manage site settings"
 INSERT INTO site_settings (key, value) VALUES
   ('hero', '{"title": "Tornike Kalandadze", "subtitle": "Full-Stack Developer", "description": "Building beautiful, performant web experiences"}'),
   ('about', '{"bio": "I am a passionate full-stack developer with expertise in modern web technologies."}'),
-  ('social', '{"github": "https://github.com/tornikekalandadze", "linkedin": "https://linkedin.com/in/tornikekalandadze", "twitter": "https://twitter.com/tornikekalandadze"}')
+  ('social', '{"github": "https://github.com/stariik", "linkedin": "https://www.linkedin.com/in/tornike-kalandadze-997701365/", "twitter": "https://twitter.com/tornikekalandadze"}')
 ON CONFLICT (key) DO NOTHING;
 
 -- Insert sample skills

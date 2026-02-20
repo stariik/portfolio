@@ -1,51 +1,84 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { motion, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
+import {
+  motion,
+  useInView,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import { gsap } from "gsap";
-import { Calendar, MapPin, Briefcase, GraduationCap, Code2, Coffee, Sparkles, Heart } from "lucide-react";
+import {
+  Calendar,
+  MapPin,
+  Briefcase,
+  GraduationCap,
+  Code2,
+  Coffee,
+  Sparkles,
+  Heart,
+} from "lucide-react";
 
 const timeline = [
   {
     id: "1",
     title: "Senior Full-Stack Developer",
-    subtitle: "Tech Company",
+    subtitle: "Freelancing",
     description:
-      "Leading development of scalable web applications using React, Next.js, and Node.js. Mentoring junior developers and driving technical decisions.",
-    date: "2022 - Present",
+      "Architecting and leading development of scalable SaaS and mobile applications using React, Next.js, Node.js, TypeScript, and React Native. Designing system architecture, database structures, and making key technical decisions while delivering production-ready products end-to-end.",
+    date: "2026 - Present",
     type: "work" as const,
     icon: Briefcase,
   },
   {
     id: "2",
-    title: "Full-Stack Developer",
-    subtitle: "Digital Agency",
+    title: "Full-Stack Developer + Mobile Dev",
+    subtitle: "Freelancing",
     description:
-      "Built custom web solutions for various clients. Worked with diverse tech stacks including React, Vue, Python, and PostgreSQL.",
-    date: "2020 - 2022",
+      "Built SaaS platforms, CRM systems, marketplaces, and e-commerce applications for international clients. Managed backend architecture, frontend implementation, database design, and deployment workflows.",
+    date: "2024 - 2025",
     type: "work" as const,
     icon: Briefcase,
   },
   {
     id: "3",
-    title: "Computer Science Degree",
-    subtitle: "University of Technology",
+    title: "Cyber Security",
+    subtitle: "Pentesting & Security Research",
     description:
-      "Bachelor's degree with focus on software engineering and web technologies. Graduated with honors.",
-    date: "2016 - 2020",
+      "Focused on web application security, penetration testing, and vulnerability assessment. Practiced identifying security flaws, analyzing system weaknesses, and applying secure development principles.",
+    date: "2022 - 2024",
     type: "education" as const,
     icon: GraduationCap,
+  },
+  {
+    id: "4",
+    title: "Front-End Developer",
+    subtitle: "Freelancing",
+    description:
+      "Developed responsive and high-performance user interfaces using React, Next.js, and modern CSS frameworks. Focused on clean UI implementation, component architecture, and performance optimization.",
+    date: "2019 - 2022",
+    type: "work" as const,
+    icon: Briefcase,
   },
 ];
 
 const stats = [
-  { label: "Years Experience", value: 5, suffix: "+", icon: Code2 },
-  { label: "Projects Completed", value: 50, suffix: "+", icon: Sparkles },
-  { label: "Happy Clients", value: 30, suffix: "+", icon: Heart },
+  { label: "Years Experience", value: 7, suffix: "+", icon: Code2 },
+  { label: "Projects Completed", value: 8, suffix: "+", icon: Sparkles },
+  { label: "Happy Clients", value: 10, suffix: "+", icon: Heart },
   { label: "Cups of Coffee", value: 999, suffix: "+", icon: Coffee },
 ];
 
-function AnimatedCounter({ value, suffix = "", duration = 2 }: { value: number; suffix?: string; duration?: number }) {
+function AnimatedCounter({
+  value,
+  suffix = "",
+  duration = 2,
+}: {
+  value: number;
+  suffix?: string;
+  duration?: number;
+}) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true });
@@ -75,12 +108,13 @@ function AnimatedCounter({ value, suffix = "", duration = 2 }: { value: number; 
 
   return (
     <span ref={ref}>
-      {count}{suffix}
+      {count}
+      {suffix}
     </span>
   );
 }
 
-function StatCard({ stat, index }: { stat: typeof stats[0]; index: number }) {
+function StatCard({ stat, index }: { stat: (typeof stats)[0]; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
 
@@ -119,7 +153,8 @@ function StatCard({ stat, index }: { stat: typeof stats[0]; index: number }) {
         <motion.div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           style={{
-            background: "radial-gradient(circle at 50% 50%, rgba(232, 106, 23, 0.1) 0%, transparent 70%)",
+            background:
+              "radial-gradient(circle at 50% 50%, rgba(232, 106, 23, 0.1) 0%, transparent 70%)",
           }}
         />
 
@@ -143,7 +178,15 @@ function StatCard({ stat, index }: { stat: typeof stats[0]; index: number }) {
   );
 }
 
-function TimelineItem({ item, index, isInView }: { item: typeof timeline[0]; index: number; isInView: boolean }) {
+function TimelineItem({
+  item,
+  index,
+  isInView,
+}: {
+  item: (typeof timeline)[0];
+  index: number;
+  isInView: boolean;
+}) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -155,7 +198,7 @@ function TimelineItem({ item, index, isInView }: { item: typeof timeline[0]; ind
       {
         opacity: 0,
         x: index % 2 === 0 ? -50 : 50,
-        rotateY: index % 2 === 0 ? -10 : 10
+        rotateY: index % 2 === 0 ? -10 : 10,
       },
       {
         opacity: 1,
@@ -163,8 +206,8 @@ function TimelineItem({ item, index, isInView }: { item: typeof timeline[0]; ind
         rotateY: 0,
         duration: 0.8,
         delay: 0.7 + index * 0.2,
-        ease: "power3.out"
-      }
+        ease: "power3.out",
+      },
     );
   }, [isInView, index]);
 
@@ -196,7 +239,9 @@ function TimelineItem({ item, index, isInView }: { item: typeof timeline[0]; ind
             </motion.div>
             <span className="text-sm font-medium">{item.date}</span>
           </div>
-          <h4 className="text-lg font-bold group-hover:text-primary transition-colors">{item.title}</h4>
+          <h4 className="text-lg font-bold group-hover:text-primary transition-colors">
+            {item.title}
+          </h4>
           <p className="text-muted-foreground text-sm mb-2">{item.subtitle}</p>
           <p className="text-muted-foreground text-sm">{item.description}</p>
         </div>
@@ -206,7 +251,11 @@ function TimelineItem({ item, index, isInView }: { item: typeof timeline[0]; ind
       <motion.div
         initial={{ scale: 0, opacity: 0 }}
         animate={isInView ? { scale: 1, opacity: 1 } : {}}
-        transition={{ delay: 0.8 + index * 0.2, type: "spring", stiffness: 200 }}
+        transition={{
+          delay: 0.8 + index * 0.2,
+          type: "spring",
+          stiffness: 200,
+        }}
         className="absolute left-0 md:left-1/2 md:-translate-x-1/2 z-10"
       >
         <div className="relative">
@@ -233,8 +282,14 @@ function ProfileCard({ isInView }: { isInView: boolean }) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), { stiffness: 100, damping: 20 });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), { stiffness: 100, damping: 20 });
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), {
+    stiffness: 100,
+    damping: 20,
+  });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), {
+    stiffness: 100,
+    damping: 20,
+  });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
@@ -254,7 +309,12 @@ function ProfileCard({ isInView }: { isInView: boolean }) {
       initial={{ opacity: 0, x: -100, rotateY: -30 }}
       animate={isInView ? { opacity: 1, x: 0, rotateY: 0 } : {}}
       transition={{ duration: 0.8, delay: 0.2, type: "spring" }}
-      style={{ rotateX, rotateY, perspective: 1000, transformStyle: "preserve-3d" }}
+      style={{
+        rotateX,
+        rotateY,
+        perspective: 1000,
+        transformStyle: "preserve-3d",
+      }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className="relative"
@@ -332,8 +392,8 @@ export function About() {
         stagger: 0.03,
         duration: 0.8,
         ease: "back.out(1.7)",
-        delay: 0.3
-      }
+        delay: 0.3,
+      },
     );
   }, [isInView]);
 
@@ -350,7 +410,8 @@ export function About() {
         <motion.div
           className="absolute top-20 right-20 w-64 h-64 rounded-full opacity-10"
           style={{
-            background: "radial-gradient(circle, var(--primary) 0%, transparent 70%)",
+            background:
+              "radial-gradient(circle, var(--primary) 0%, transparent 70%)",
             filter: "blur(60px)",
           }}
           animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
@@ -359,7 +420,8 @@ export function About() {
         <motion.div
           className="absolute bottom-20 left-20 w-48 h-48 rounded-full opacity-10"
           style={{
-            background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)",
+            background:
+              "radial-gradient(circle, var(--accent) 0%, transparent 70%)",
             filter: "blur(40px)",
           }}
           animate={{ x: [0, -20, 0], y: [0, 20, 0] }}
@@ -423,9 +485,9 @@ export function About() {
             </motion.h3>
 
             {[
-              "Hello! I'm Tornike, a full-stack developer based in Tbilisi, Georgia. I specialize in building exceptional digital experiences that are fast, accessible, and visually appealing.",
-              "My journey in web development started during my university years when I built my first website. Since then, I've had the privilege of working with startups, agencies, and established companies, helping them bring their ideas to life through code.",
-              "When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or enjoying a good cup of coffee while reading about the latest trends in tech."
+              "Hello, I’m Tornike — a full-stack and mobile developer based in Tbilisi, Georgia, with 7 years of experience building scalable digital products.",
+              "I specialize in SaaS platforms, CRM systems, marketplaces, e-commerce solutions, admin dashboards, and real-time systems. My core stack includes Node.js, Next.js, React, TypeScript, TailwindCSS, and React Native. I design backend architecture, structure databases, and deliver clean, high-performance interfaces.",
+              "I build products from the ground up — fast and independently — handling both frontend and backend without dependency. I think like a product owner, focusing not just on code, but on scalability, performance, and long-term maintainability.",
             ].map((text, index) => (
               <motion.p
                 key={index}
@@ -464,7 +526,12 @@ export function About() {
             {/* Timeline items */}
             <div className="space-y-12">
               {timeline.map((item, index) => (
-                <TimelineItem key={item.id} item={item} index={index} isInView={isInView} />
+                <TimelineItem
+                  key={item.id}
+                  item={item}
+                  index={index}
+                  isInView={isInView}
+                />
               ))}
             </div>
           </div>

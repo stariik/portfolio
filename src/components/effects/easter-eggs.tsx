@@ -44,7 +44,12 @@ export function EasterEggs() {
   const triggerConfetti = useCallback(() => {
     const duration = 3000;
     const animationEnd = Date.now() + duration;
-    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
+    const defaults = {
+      startVelocity: 30,
+      spread: 360,
+      ticks: 60,
+      zIndex: 9999,
+    };
 
     function randomInRange(min: number, max: number) {
       return Math.random() * (max - min) + min;
@@ -78,11 +83,11 @@ export function EasterEggs() {
     // Console message
     console.log(
       "%c" + asciiArt,
-      "color: #E86A17; font-family: monospace; font-size: 12px;"
+      "color: #E86A17; font-family: monospace; font-size: 12px;",
     );
     console.log(
-      "%c🔥 Looking for the source code? https://github.com/tornikekalandadze",
-      "color: #C9924A; font-size: 14px; font-weight: bold;"
+      "%c🔥 Looking for the source code? https://github.com/stariik",
+      "color: #C9924A; font-size: 14px; font-weight: bold;",
     );
 
     // Konami code listener
@@ -163,9 +168,7 @@ export function EasterEggs() {
                 </motion.span>
               ))}
             </div>
-            <motion.div
-              className="mt-8 h-2 w-64 bg-gray-800 rounded-full overflow-hidden mx-auto"
-            >
+            <motion.div className="mt-8 h-2 w-64 bg-gray-800 rounded-full overflow-hidden mx-auto">
               <motion.div
                 className="h-full bg-primary"
                 initial={{ width: 0 }}

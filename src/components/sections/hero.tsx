@@ -7,30 +7,41 @@ import { gsap } from "gsap";
 import { ArrowDown, Github, Linkedin, Twitter, Sparkles } from "lucide-react";
 import { MagneticButton } from "@/components/ui/button";
 
-const Scene = dynamic(() => import("@/components/three/scene").then((mod) => mod.Scene), {
-  ssr: false,
-  loading: () => (
-    <div className="absolute inset-0 bg-gradient-to-b from-secondary/20 to-background flex items-center justify-center">
-      <motion.div
-        className="flex flex-col items-center gap-4"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-      >
+const Scene = dynamic(
+  () => import("@/components/three/scene").then((mod) => mod.Scene),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="absolute inset-0 bg-gradient-to-b from-secondary/20 to-background flex items-center justify-center">
         <motion.div
-          className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-        />
-        <span className="text-muted-foreground">Loading 3D scene...</span>
-      </motion.div>
-    </div>
-  ),
-});
+          className="flex flex-col items-center gap-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          <motion.div
+            className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          />
+          <span className="text-muted-foreground">Loading 3D scene...</span>
+        </motion.div>
+      </div>
+    ),
+  },
+);
 
 const socialLinks = [
-  { icon: Github, href: "https://github.com/tornikekalandadze", label: "GitHub" },
-  { icon: Linkedin, href: "https://linkedin.com/in/tornikekalandadze", label: "LinkedIn" },
-  { icon: Twitter, href: "https://twitter.com/tornikekalandadze", label: "Twitter" },
+  { icon: Github, href: "https://github.com/stariik", label: "GitHub" },
+  {
+    icon: Linkedin,
+    href: "https://www.linkedin.com/in/tornike-kalandadze-997701365/",
+    label: "LinkedIn",
+  },
+  {
+    icon: Twitter,
+    href: "https://twitter.com/tornikekalandadze",
+    label: "Twitter",
+  },
 ];
 
 const roles = [
@@ -65,7 +76,7 @@ function TypewriterText() {
           }
         }
       },
-      isDeleting ? 50 : 100
+      isDeleting ? 50 : 100,
     );
 
     return () => clearTimeout(timeout);
@@ -83,7 +94,15 @@ function TypewriterText() {
   );
 }
 
-function FloatingBadge({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
+function FloatingBadge({
+  children,
+  delay = 0,
+  className = "",
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+}) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20, scale: 0.8 }}
@@ -137,7 +156,7 @@ export function Hero() {
             duration: 1,
             ease: "back.out(1.7)",
             delay: 0.3,
-          }
+          },
         );
       }
 
@@ -146,7 +165,7 @@ export function Hero() {
         gsap.fromTo(
           subtitleRef.current,
           { opacity: 0, y: 30, filter: "blur(10px)" },
-          { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, delay: 1 }
+          { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, delay: 1 },
         );
       }
     });
@@ -179,7 +198,8 @@ export function Hero() {
         <motion.div
           className="absolute w-[600px] h-[600px] rounded-full opacity-20"
           style={{
-            background: "radial-gradient(circle, var(--primary) 0%, transparent 70%)",
+            background:
+              "radial-gradient(circle, var(--primary) 0%, transparent 70%)",
             filter: "blur(80px)",
           }}
           animate={{
@@ -191,7 +211,8 @@ export function Hero() {
         <motion.div
           className="absolute right-0 bottom-0 w-[400px] h-[400px] rounded-full opacity-15"
           style={{
-            background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)",
+            background:
+              "radial-gradient(circle, var(--accent) 0%, transparent 70%)",
             filter: "blur(60px)",
           }}
           animate={{
@@ -212,14 +233,20 @@ export function Hero() {
           Next.js Expert
         </span>
       </FloatingBadge>
-      <FloatingBadge delay={2.3} className="top-[30%] right-[12%] hidden lg:block">
+      <FloatingBadge
+        delay={2.3}
+        className="top-[30%] right-[12%] hidden lg:block"
+      >
         <span className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
           Available for hire
         </span>
       </FloatingBadge>
-      <FloatingBadge delay={2.6} className="bottom-[25%] left-[15%] hidden lg:block">
-        TypeScript Lover
+      <FloatingBadge
+        delay={2.6}
+        className="bottom-[25%] left-[15%] hidden lg:block"
+      >
+        JavaScript Lover
       </FloatingBadge>
 
       {/* Content */}
@@ -290,10 +317,11 @@ export function Hero() {
           transition={{ delay: 1.3, duration: 0.5 }}
           className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          I craft <span className="text-foreground font-medium">beautiful</span>,{" "}
-          <span className="text-foreground font-medium">performant</span> web experiences
-          with modern technologies. Passionate about clean code, great UX, and pushing
-          the boundaries of what&apos;s possible on the web.
+          I craft <span className="text-foreground font-medium">beautiful</span>
+          , <span className="text-foreground font-medium">performant</span> web
+          experiences with modern technologies. Passionate about clean code,
+          great UX, and pushing the boundaries of what&apos;s possible on the
+          web.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -353,7 +381,11 @@ export function Hero() {
         transition={{ delay: 2.2, duration: 0.5 }}
       >
         <motion.button
-          onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
+          onClick={() =>
+            document
+              .getElementById("about")
+              ?.scrollIntoView({ behavior: "smooth" })
+          }
           className="group flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
         >
           <span className="text-sm font-medium">Scroll to explore</span>
