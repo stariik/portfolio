@@ -108,3 +108,12 @@ supabase/migrations/         # SQL schema + storage setup
 | `npm run start` | Serve the production build |
 | `npm run lint` | Run ESLint across the project |
 
+---
+
+<div align="center">
+
+Built with care by [@stariik](https://github.com/stariik).
+If this project inspires you, a ⭐ goes a long way.
+
+</div>
+
