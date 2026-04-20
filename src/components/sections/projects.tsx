@@ -14,7 +14,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import type { Project } from "@/types";
+import type { ProjectCard as Project } from "@/types";
 
 // Sample projects data (will be replaced with Supabase data)
 const sampleProjects: Project[] = [
@@ -24,7 +24,6 @@ const sampleProjects: Project[] = [
     slug: "ecommerce-platform",
     description:
       "A full-featured e-commerce platform with real-time inventory, Stripe payments, and admin dashboard.",
-    content: null,
     thumbnail_url: "/projects/ecommerce.jpg",
     images: [],
     technologies: ["Next.js", "TypeScript", "Stripe", "PostgreSQL", "Tailwind"],
@@ -32,10 +31,6 @@ const sampleProjects: Project[] = [
     github_url: "https://github.com/example",
     category: "web",
     featured: true,
-    display_order: 1,
-    status: "published",
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
   },
   {
     id: "2",
@@ -43,7 +38,6 @@ const sampleProjects: Project[] = [
     slug: "task-management",
     description:
       "A collaborative task management application with real-time updates and team features.",
-    content: null,
     thumbnail_url: "/projects/taskapp.jpg",
     images: [],
     technologies: ["React", "Node.js", "Socket.io", "MongoDB", "Redux"],
@@ -51,10 +45,6 @@ const sampleProjects: Project[] = [
     github_url: "https://github.com/example",
     category: "web",
     featured: true,
-    display_order: 2,
-    status: "published",
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
   },
   {
     id: "3",
@@ -62,7 +52,6 @@ const sampleProjects: Project[] = [
     slug: "ai-content-generator",
     description:
       "An AI-powered content generation tool that helps create blog posts, social media content, and more.",
-    content: null,
     thumbnail_url: "/projects/ai-generator.jpg",
     images: [],
     technologies: ["Python", "FastAPI", "OpenAI", "React", "Docker"],
@@ -70,10 +59,6 @@ const sampleProjects: Project[] = [
     github_url: "https://github.com/example",
     category: "ai",
     featured: false,
-    display_order: 3,
-    status: "published",
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
   },
   {
     id: "4",
@@ -81,7 +66,6 @@ const sampleProjects: Project[] = [
     slug: "real-estate-platform",
     description:
       "A modern real estate platform with virtual tours, map integration, and advanced search filters.",
-    content: null,
     thumbnail_url: "/projects/realestate.jpg",
     images: [],
     technologies: ["Next.js", "Mapbox", "Prisma", "PostgreSQL", "AWS"],
@@ -89,10 +73,6 @@ const sampleProjects: Project[] = [
     github_url: "https://github.com/example",
     category: "web",
     featured: false,
-    display_order: 4,
-    status: "published",
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
   },
 ];
 

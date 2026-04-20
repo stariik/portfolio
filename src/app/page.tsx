@@ -9,9 +9,12 @@ async function ProjectsSection() {
   const supabase = await createClient();
   const { data: projects } = await supabase
     .from("projects")
-    .select("*")
+    .select(
+      "id, title, slug, description, thumbnail_url, images, technologies, live_url, github_url, category, featured",
+    )
     .eq("status", "published")
-    .order("display_order", { ascending: true });
+    .order("display_order", { ascending: true })
+    .limit(24);
 
   return <Projects projects={projects || undefined} />;
 }
@@ -20,8 +23,9 @@ async function SkillsSection() {
   const supabase = await createClient();
   const { data: skills } = await supabase
     .from("skills")
-    .select("*")
-    .order("display_order", { ascending: true });
+    .select("id, name, category, proficiency, color")
+    .order("display_order", { ascending: true })
+    .limit(50);
 
   return <Skills skills={skills || undefined} />;
 }

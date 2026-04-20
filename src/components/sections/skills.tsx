@@ -4,24 +4,24 @@ import { useRef, useState, useEffect } from "react";
 import { motion, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { gsap } from "gsap";
 import { Zap } from "lucide-react";
-import type { Skill } from "@/types";
+import type { SkillSummary as Skill } from "@/types";
 
-// Sample skills data (will be replaced with Supabase data)
+// Sample skills data (used when Supabase is empty)
 const sampleSkills: Skill[] = [
-  { id: "1", name: "React", category: "Frontend", proficiency: 95, icon_name: "react", color: "#61DAFB", display_order: 1, created_at: "" },
-  { id: "2", name: "Next.js", category: "Frontend", proficiency: 90, icon_name: "nextjs", color: "#000000", display_order: 2, created_at: "" },
-  { id: "3", name: "TypeScript", category: "Languages", proficiency: 90, icon_name: "typescript", color: "#3178C6", display_order: 3, created_at: "" },
-  { id: "4", name: "JavaScript", category: "Languages", proficiency: 95, icon_name: "javascript", color: "#F7DF1E", display_order: 4, created_at: "" },
-  { id: "5", name: "Node.js", category: "Backend", proficiency: 85, icon_name: "nodejs", color: "#339933", display_order: 5, created_at: "" },
-  { id: "6", name: "Python", category: "Backend", proficiency: 75, icon_name: "python", color: "#3776AB", display_order: 6, created_at: "" },
-  { id: "7", name: "PostgreSQL", category: "Database", proficiency: 80, icon_name: "postgresql", color: "#4169E1", display_order: 7, created_at: "" },
-  { id: "8", name: "MongoDB", category: "Database", proficiency: 75, icon_name: "mongodb", color: "#47A248", display_order: 8, created_at: "" },
-  { id: "9", name: "Redis", category: "Database", proficiency: 70, icon_name: "redis", color: "#DC382D", display_order: 9, created_at: "" },
-  { id: "10", name: "Docker", category: "DevOps", proficiency: 75, icon_name: "docker", color: "#2496ED", display_order: 10, created_at: "" },
-  { id: "11", name: "AWS", category: "DevOps", proficiency: 70, icon_name: "aws", color: "#FF9900", display_order: 11, created_at: "" },
-  { id: "12", name: "Tailwind CSS", category: "Frontend", proficiency: 95, icon_name: "tailwindcss", color: "#06B6D4", display_order: 12, created_at: "" },
-  { id: "13", name: "GraphQL", category: "Backend", proficiency: 80, icon_name: "graphql", color: "#E10098", display_order: 13, created_at: "" },
-  { id: "14", name: "Git", category: "Tools", proficiency: 90, icon_name: "git", color: "#F05032", display_order: 14, created_at: "" },
+  { id: "1", name: "React", category: "Frontend", proficiency: 95, color: "#61DAFB" },
+  { id: "2", name: "Next.js", category: "Frontend", proficiency: 90, color: "#000000" },
+  { id: "3", name: "TypeScript", category: "Languages", proficiency: 90, color: "#3178C6" },
+  { id: "4", name: "JavaScript", category: "Languages", proficiency: 95, color: "#F7DF1E" },
+  { id: "5", name: "Node.js", category: "Backend", proficiency: 85, color: "#339933" },
+  { id: "6", name: "Python", category: "Backend", proficiency: 75, color: "#3776AB" },
+  { id: "7", name: "PostgreSQL", category: "Database", proficiency: 80, color: "#4169E1" },
+  { id: "8", name: "MongoDB", category: "Database", proficiency: 75, color: "#47A248" },
+  { id: "9", name: "Redis", category: "Database", proficiency: 70, color: "#DC382D" },
+  { id: "10", name: "Docker", category: "DevOps", proficiency: 75, color: "#2496ED" },
+  { id: "11", name: "AWS", category: "DevOps", proficiency: 70, color: "#FF9900" },
+  { id: "12", name: "Tailwind CSS", category: "Frontend", proficiency: 95, color: "#06B6D4" },
+  { id: "13", name: "GraphQL", category: "Backend", proficiency: 80, color: "#E10098" },
+  { id: "14", name: "Git", category: "Tools", proficiency: 90, color: "#F05032" },
 ];
 
 const categoryColors: Record<string, string> = {
