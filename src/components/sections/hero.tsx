@@ -195,10 +195,11 @@ export function Hero() {
         {/* Name */}
         <h1
           ref={titleRef}
+          aria-label={`${firstName} ${lastName}`}
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-4"
           style={{ perspective: "1000px" }}
         >
-          <span className="block">
+          <span className="block" aria-hidden="true">
             {firstName.split("").map((char, index) => (
               <span
                 key={`first-${index}`}
@@ -209,7 +210,7 @@ export function Hero() {
               </span>
             ))}
           </span>
-          <span className="block text-primary mt-2">
+          <span className="block text-primary mt-2" aria-hidden="true">
             {lastName.split("").map((char, index) => (
               <span
                 key={`last-${index}`}
@@ -226,9 +227,11 @@ export function Hero() {
         <div
           ref={subtitleRef}
           className="text-xl md:text-2xl lg:text-3xl font-medium mb-6 h-[1.5em]"
+          aria-hidden="true"
         >
           <TypewriterText />
         </div>
+        <span className="sr-only">{roles.join(", ")}</span>
 
         {/* Description */}
         <motion.p
