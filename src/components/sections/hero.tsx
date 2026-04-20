@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { gsap } from "gsap";
-import { ArrowDown, Github, Linkedin, Twitter, Sparkles } from "lucide-react";
+import { ArrowDown, Github, Linkedin, Twitter } from "lucide-react";
 import { MagneticButton } from "@/components/ui/button";
 
 const Scene = dynamic(
@@ -94,33 +94,6 @@ function TypewriterText() {
   );
 }
 
-function FloatingBadge({
-  children,
-  delay = 0,
-  className = "",
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20, scale: 0.8 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ delay, duration: 0.5, type: "spring" }}
-      className={`absolute ${className}`}
-    >
-      <motion.div
-        animate={{ y: [0, -8, 0] }}
-        transition={{ duration: 3, repeat: Infinity, delay }}
-        className="px-4 py-2 bg-card/80 backdrop-blur-sm rounded-full border border-border shadow-lg text-sm font-medium"
-      >
-        {children}
-      </motion.div>
-    </motion.div>
-  );
-}
-
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -193,61 +166,8 @@ export function Hero() {
       {/* 3D Scene Background */}
       <Scene className="canvas-container" />
 
-      {/* Animated gradient orbs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute w-[600px] h-[600px] rounded-full opacity-20"
-          style={{
-            background:
-              "radial-gradient(circle, var(--primary) 0%, transparent 70%)",
-            filter: "blur(80px)",
-          }}
-          animate={{
-            x: ["-20%", "20%", "-20%"],
-            y: ["-10%", "10%", "-10%"],
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        />
-        <motion.div
-          className="absolute right-0 bottom-0 w-[400px] h-[400px] rounded-full opacity-15"
-          style={{
-            background:
-              "radial-gradient(circle, var(--accent) 0%, transparent 70%)",
-            filter: "blur(60px)",
-          }}
-          animate={{
-            x: ["10%", "-10%", "10%"],
-            y: ["10%", "-10%", "10%"],
-          }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-        />
-      </div>
-
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background pointer-events-none" />
-
-      {/* Floating badges */}
-      <FloatingBadge delay={2} className="top-[20%] left-[10%] hidden lg:block">
-        <span className="flex items-center gap-2">
-          <Sparkles className="w-4 h-4 text-primary" />
-          Next.js Expert
-        </span>
-      </FloatingBadge>
-      <FloatingBadge
-        delay={2.3}
-        className="top-[30%] right-[12%] hidden lg:block"
-      >
-        <span className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-          Available for hire
-        </span>
-      </FloatingBadge>
-      <FloatingBadge
-        delay={2.6}
-        className="bottom-[25%] left-[15%] hidden lg:block"
-      >
-        JavaScript Lover
-      </FloatingBadge>
 
       {/* Content */}
       <motion.div
@@ -399,9 +319,6 @@ export function Hero() {
         </motion.button>
       </motion.div>
 
-      {/* Corner decorations */}
-      <div className="absolute top-20 left-8 w-20 h-20 border-l-2 border-t-2 border-primary/20 hidden lg:block" />
-      <div className="absolute bottom-20 right-8 w-20 h-20 border-r-2 border-b-2 border-primary/20 hidden lg:block" />
     </section>
   );
 }
