@@ -99,17 +99,6 @@ supabase/migrations/         # SQL schema + storage setup
 
 ---
 
-## Scripts
-
-| Command | Description |
-| --- | --- |
-| `npm run dev` | Start the Next.js dev server |
-| `npm run build` | Create an optimised production build |
-| `npm run start` | Serve the production build |
-| `npm run lint` | Run ESLint across the project |
-
----
-
 <div align="center">
 
 Built with care by [@stariik](https://github.com/stariik).
