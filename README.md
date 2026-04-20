@@ -99,48 +99,6 @@ supabase/migrations/         # SQL schema + storage setup
 
 ---
 
-## Getting started
-
-### Prerequisites
-- Node.js 20+
-- A Supabase project (free tier is fine)
-
-### 1. Clone & install
-
-```bash
-git clone https://github.com/stariik/portfolio.git
-cd portfolio
-npm install
-```
-
-### 2. Configure environment
-
-Create a `.env.local` in the project root:
-
-```bash
-NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
-```
-
-### 3. Apply the database schema
-
-Run the SQL files in `supabase/migrations/` against your Supabase project (dashboard SQL editor or CLI):
-
-```bash
-supabase db push
-```
-
-### 4. Run the dev server
-
-```bash
-npm run dev
-```
-
-Visit [http://localhost:3000](http://localhost:3000). The admin panel lives at [/admin](http://localhost:3000/admin).
-
----
-
 ## Scripts
 
 | Command | Description |
@@ -150,17 +108,3 @@ Visit [http://localhost:3000](http://localhost:3000). The admin panel lives at [
 | `npm run start` | Serve the production build |
 | `npm run lint` | Run ESLint across the project |
 
----
-
-## Deployment
-
-Optimised for **Vercel** — push to `main`, connect the repo, add the Supabase env vars, and deploy. Works equally well on any Node host that supports Next.js 16.
-
----
-
-<div align="center">
-
-Built with care by [@stariik](https://github.com/stariik).
-If this project inspires you, a ⭐ goes a long way.
-
-</div>
