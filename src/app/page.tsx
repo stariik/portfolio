@@ -3,6 +3,7 @@ import { Navbar, Footer } from "@/components/layout";
 import { Hero, About, Projects, Skills, Contact } from "@/components/sections";
 import { NoiseOverlay, EasterEggs } from "@/components/effects";
 import { createClient } from "@/lib/supabase/server";
+import { getHeroSettings, getSocialLinks } from "@/lib/site-settings";
 
 async function ProjectsSection() {
   const supabase = await createClient();
@@ -25,12 +26,17 @@ async function SkillsSection() {
   return <Skills skills={skills || undefined} />;
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [heroSettings, socialLinks] = await Promise.all([
+    getHeroSettings(),
+    getSocialLinks(),
+  ]);
+
   return (
     <>
       <Navbar />
       <main>
-        <Hero />
+        <Hero settings={heroSettings} socialLinks={socialLinks} />
         <About />
         <Suspense fallback={<ProjectsSkeleton />}>
           <ProjectsSection />

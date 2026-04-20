@@ -4,8 +4,15 @@ import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { gsap } from "gsap";
-import { ArrowDown, Github, Linkedin, Twitter } from "lucide-react";
+import { ArrowDown, Github, Linkedin, Twitter, Link as LinkIcon } from "lucide-react";
 import { MagneticButton } from "@/components/ui/button";
+import type { HeroSettings, SocialLink } from "@/lib/site-settings";
+
+const SOCIAL_ICONS: Record<string, typeof Github> = {
+  GitHub: Github,
+  LinkedIn: Linkedin,
+  Twitter: Twitter,
+};
 
 const Scene = dynamic(
   () => import("@/components/three/scene").then((mod) => mod.Scene),
@@ -30,35 +37,14 @@ const Scene = dynamic(
   },
 );
 
-const socialLinks = [
-  { icon: Github, href: "https://github.com/stariik", label: "GitHub" },
-  {
-    icon: Linkedin,
-    href: "https://www.linkedin.com/in/tornike-kalandadze-997701365/",
-    label: "LinkedIn",
-  },
-  {
-    icon: Twitter,
-    href: "https://twitter.com/tornikekalandadze",
-    label: "Twitter",
-  },
-];
-
-const roles = [
-  "Full-Stack Developer",
-  "React Enthusiast",
-  "UI/UX Designer",
-  "Problem Solver",
-  "Coffee Lover",
-];
-
-function TypewriterText() {
+function TypewriterText({ roles }: { roles: string[] }) {
   const [currentRole, setCurrentRole] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    const role = roles[currentRole];
+    if (roles.length === 0) return;
+    const role = roles[currentRole % roles.length];
     const timeout = setTimeout(
       () => {
         if (!isDeleting) {
@@ -80,7 +66,7 @@ function TypewriterText() {
     );
 
     return () => clearTimeout(timeout);
-  }, [displayText, isDeleting, currentRole]);
+  }, [displayText, isDeleting, currentRole, roles]);
 
   return (
     <span className="text-primary">
@@ -94,7 +80,20 @@ function TypewriterText() {
   );
 }
 
-export function Hero() {
+type HeroProps = {
+  settings: HeroSettings;
+  socialLinks: SocialLink[];
+};
+
+export function Hero({ settings, socialLinks }: HeroProps) {
+  const {
+    first_name: firstName,
+    last_name: lastName,
+    greeting,
+    description,
+    roles,
+    available_for_hire: availableForHire,
+  } = settings;
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLDivElement>(null);
@@ -146,9 +145,6 @@ export function Hero() {
     return () => ctx.revert();
   }, []);
 
-  const firstName = "Tornike";
-  const lastName = "Kalandadze";
-
   const scrollToProjects = () => {
     document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
   };
@@ -185,11 +181,21 @@ export function Hero() {
             <motion.span
               animate={{ rotate: [0, 20, 0] }}
               transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 2 }}
+              aria-hidden="true"
             >
               👋
             </motion.span>
-            Hello, I&apos;m
+            {greeting}
           </span>
+          {availableForHire && (
+            <span className="ml-3 inline-flex items-center gap-2 px-3 py-1 bg-card/80 backdrop-blur-sm rounded-full border border-border text-xs font-medium">
+              <span
+                className="w-2 h-2 rounded-full bg-green-500 animate-pulse"
+                aria-hidden="true"
+              />
+              Available for hire
+            </span>
+          )}
         </motion.div>
 
         {/* Name */}
@@ -229,7 +235,7 @@ export function Hero() {
           className="text-xl md:text-2xl lg:text-3xl font-medium mb-6 h-[1.5em]"
           aria-hidden="true"
         >
-          <TypewriterText />
+          <TypewriterText roles={roles} />
         </div>
         <span className="sr-only">{roles.join(", ")}</span>
 
@@ -240,11 +246,7 @@ export function Hero() {
           transition={{ delay: 1.3, duration: 0.5 }}
           className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          I craft <span className="text-foreground font-medium">beautiful</span>
-          , <span className="text-foreground font-medium">performant</span> web
-          experiences with modern technologies. Passionate about clean code,
-          great UX, and pushing the boundaries of what&apos;s possible on the
-          web.
+          {description}
         </motion.p>
 
         {/* CTA Buttons */}
@@ -269,30 +271,33 @@ export function Hero() {
           transition={{ delay: 1.8, duration: 0.5 }}
           className="flex items-center justify-center gap-4"
         >
-          {socialLinks.map((link, index) => (
-            <motion.a
-              key={link.label}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative p-3 rounded-full bg-card/80 backdrop-blur-sm border-2 border-border hover:border-primary transition-all duration-300"
-              whileHover={{ y: -5, scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.8 + index * 0.1 }}
-              aria-label={link.label}
-            >
-              <link.icon className="w-5 h-5 group-hover:text-primary transition-colors" />
-              <motion.span
-                className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs bg-foreground text-background px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
-                initial={{ y: 10 }}
-                whileHover={{ y: 0 }}
+          {socialLinks.map((link, index) => {
+            const Icon = SOCIAL_ICONS[link.label] ?? LinkIcon;
+            return (
+              <motion.a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative p-3 rounded-full bg-card/80 backdrop-blur-sm border-2 border-border hover:border-primary transition-all duration-300"
+                whileHover={{ y: -5, scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.8 + index * 0.1 }}
+                aria-label={link.label}
               >
-                {link.label}
-              </motion.span>
-            </motion.a>
-          ))}
+                <Icon className="w-5 h-5 group-hover:text-primary transition-colors" />
+                <motion.span
+                  className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs bg-foreground text-background px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
+                  initial={{ y: 10 }}
+                  whileHover={{ y: 0 }}
+                >
+                  {link.label}
+                </motion.span>
+              </motion.a>
+            );
+          })}
         </motion.div>
       </motion.div>
 
